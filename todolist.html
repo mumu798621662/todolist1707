@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todolist</title>
+    <link rel="stylesheet" href="todolist.css">
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="box">
+    <header>
+        <input type="text" v-model="con" @keyup.13="add">
+    </header>
+    <div class="btns">
+        <button @click="check('0')" :class="{red:status=='0'}">未完成</button>
+        <button @click="check('1')" :class="{red:status=='1'}">已完成</button>
+        <button @click="check('all')" :class="{red:status=='all'}">全部</button>
+    </div>
+    <ul class="list">
+        <li v-for="item in datas">
+            <div v-if="item.edit" @dblclick="edit(item)">
+                <div class="status" @click="changeStatus(item)" :class="{active:item.status==1}"></div>
+                <p>{{item.content}}</p>
+                <button class="del" @click="del(item)">删除</button>
+            </div>
+            <div v-else>
+                <input type="text" v-model="item.content" @blur="edit(item)">
+            </div>
+        </li>
+    </ul>
+    <div class="message" v-show="all.length==0" style="padding-left: 50px">无事项
+    </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
